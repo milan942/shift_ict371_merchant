@@ -1,4 +1,10 @@
 # Merchant Advocate notes
+## Saturday sprint  - data import
+
+1. excel import functions (on dummy data)
+2. is.na, is_empty checkpoints for missing data cells
+3. string processing (get rid of special characters, white space?)
+4. fokking dates!!!!
 
 ## Questions:
 
