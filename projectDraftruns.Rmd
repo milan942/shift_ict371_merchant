@@ -7,6 +7,8 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(ggplot2)
 ```
 
 ## R Markdown
@@ -28,3 +30,43 @@ plot(pressure)
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+## Stdin
+
+you would have to type in the file name in the console pane:
+
+![console  pane ](images/stdin.png)
+
+
+
+
+```{r}
+cat("What's your file name? ")
+x <- readLines(con=stdin(),1)
+print(x)
+```
+
+
+## Sample data
+
+Read in:
+```{r}
+data<-read.csv("sample_file2.csv", header = T)
+```
+
+Some data wrangling:
+
+```{r}
+data$Quantity<-sample(0:25, nrow(data), replace = TRUE)
+data$Total.Charge<-data$Quantity * data$Full.cost.unit
+data_sort_by_unit_price<-data[order(data$Unit.Price.Charged),]
+```
+
+
+Simple plot:
+
+```{r}
+d<-data_sort_by_unit_price
+plot(d$Unit.Price.Charged, d$Quantity, pch = 15, col = "red", main = "Number of kits Puchased", ylab = "Quantity", xlab = "Price per unit")
+```
+

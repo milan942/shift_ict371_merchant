@@ -1,0 +1,12 @@
+﻿Platform,Sample Type,,Library Prep Type (Per Sample),,,Site,Quantity,Full cost/unit,Consumables/unit,Unit Price Charged,Total Charge
+Any,RNA,,ERCC controls (per sample),,,Auckland, -   ,676.88,50,62.5, -   
+454,DNA,,Rapid library (genomic and non-fusion amplicon),,,Auckland, -   ,676.88,420,525, -   
+Illumina,DNA,,Nextera DNA library,,,Auckland, -   ,219.36,165,206.25, -   
+Illumina,DNA,,Nextera XT DNA library,,,Auckland, -   ,137.72,73,91.25, -   
+Illumina,DNA,,TruSeq DNA PCR-Free library (incl addition of TruSeq index adapters),,,Auckland, -   ,386.5,226,282.5, -   
+Illumina,DNA,,TruSeq DNA Nano library,,,Auckland, -   ,386.5,130,162.5, -   
+Illumina,Amplicons,,Two-step PCR library (addition of Nextera index adapters),,,Auckland, -   ,39.06,12,15, -   
+Illumina,Amplicons,,Two-step PCR library (Nextera adapters) per set of 36-96,,,Auckland, -   ,703,550,687.5, -   
+Illumina,RNA,,TruSeq Small RNA library,,,Auckland, -   ,481.16,265,331.25, -   
+Ion Torrent,"DNA, Amplicons",,"Kapa library, including index",,,Auckland, -   ,339.33,84.45,105.56, -   
+Ion Torrent,Small RNA,,"Ion RNA-Seq v2 library, including index",,,Auckland, -   ,479.88,225,281.25, -    
