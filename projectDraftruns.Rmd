@@ -28,6 +28,7 @@ transaction_id<-c("TDESD")
 head(a)
 ```
 
+Note that something strange is going on in the row 2 (Sales Amount, etc), but it is consistent result for both openxlsx::read.xls and  readxl::read_excel. There are similar rows downstream as well. We might use round(x, digits = 2), just have to check that it does not change cents amount and create discrepancy in the total sums
 
 ## openxlsx
 ```{r}
@@ -36,6 +37,7 @@ b<-read.xlsx(xlsxFile, sheet = 1, startRow = 9, cols = c(1:10), na.strings = "NA
 b$Date<-convertToDate(b$Date)
 ```
 
+with convertToDate() dates entered in the format "12/4/2021" would have been read in correctly, those that are "13/04" are turned into NAs. Different formats are an artifact created by Excel in attempt to americanise the date format (it believes that first two digits are a month number and things go strange starting from the 13th day of each month)
 
 ```{r}
 head(b)
