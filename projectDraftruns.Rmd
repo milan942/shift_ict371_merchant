@@ -39,17 +39,10 @@ b$Date<-convertToDate(b$Date)
 
 with convertToDate() dates entered in the format "12/4/2021" would have been read in correctly, those that are "13/04" are turned into NAs. Different formats are an artifact created by Excel in attempt to americanise the date format (it believes that first two digits are a month number and things go strange starting from the 13th day of each month)
 
-```{r}
-head(b)
-```
 
-```{r}
-b[12:15,]
-```
+## reading csv data
 
-
-
-
+### reading the file names in the directory
 
 ```{r}
 dir<-"./data/Couplands_data_April_2021/"
@@ -57,6 +50,9 @@ files_to_read<-list.files(dir)
 files_to_read[1]
 
 ```
+
+### reading a csv file in - header, date
+getting the business site name and date of the report
 
 ```{r}
 a<-read.csv(file = paste0(dir, files_to_read[1]), header = F, nrows = 8) # read the header - first 8 rows
@@ -69,11 +65,51 @@ month<-unique(sort(month)) # sort and get unique values
 # if after sorting the month is of length 1 - it is all good and we can set it as a report date
 ```
 
+## get the data to collate into further reports
 
+### variable names
+
+Var names come from the first row with 'IDMH' code ('H' for header?)
+
+!!! check if 'IDMH'  appears once per spreadsheet. So far it is hard-coded that we take the first appearance of 'IDMH' as col names for the data
+
+Note: the thing about conversion factors to strings is ![here](https://stackoverflow.com/questions/2851015/convert-data-frame-columns-from-factors-to-characters)
 
 ```{r}
-for (f in files_to_read){
-  d<-read.csv()
+data_col_names<-d[d$TDESH == "IDMH", ]
+data_col_names<- data_col_names %>% mutate_if(is.factor, as.character) %>% gsub(" ", ".", .) 
+
+```
+
+select the data with 'IDMDT' as a code
+
+```{r}
+d_to_integrate<-d[d$TDESH %in% "IDMDT", ]
+colnames(d_to_integrate)<-data_col_names
+```
+
+
+looping over files in the directory
+
+```{r}
+list_of_data_to_integrate<-list()
+list_of_dates<-list()
+list_of_address<-list()
+for (i in 1:length(files_to_read)){
+  a<-read.csv(file = paste0(dir, files_to_read[i]), header = F, nrows = 8) # read the header - first 8 rows
+list_of_address[[i]]<-a[1, c(6,7)] # get the address
+d<-read.csv(file = paste0(dir, files_to_read[i]), header = T, skip = 8)
+dates<-d %>% filter(TDESH %in% "TDESD") %>% select(Date) %>% .[["Date"]] # 'TDESD' seems to be the code for day-by-day transactions, col 3 has dates in dd/mm format
+dates_s<-strsplit(as.character(dates), "/") # split the vector of dates by '/'. strisplit() outputs a list, every second sub-element is the month
+month<-sapply(dates_s, "[[", 2) # something clever we have to credit mighty web for, gets every second sub-element of the list 
+list_of_dates[[i]]<-unique(sort(month)) # sort and get unique values
+# if after sorting the month is of length 1 - it is all good and we can set it as a report date
+
+data_col_names<-d[d$TDESH == "IDMH", ]
+data_col_names<- data_col_names %>% mutate_if(is.factor, as.character) %>% gsub(" ", ".", .) 
+d_to_integrate<-d[d$TDESH %in% "IDMDT", ]
+colnames(d_to_integrate)<-data_col_names
+list_of_data_to_integrate[[i]]<-d_to_integrate
 }
 ```
 
@@ -106,27 +142,4 @@ x <- readLines(con=stdin(),1)
 print(x)
 ```
 
-
-## Sample data
-
-Read in:
-```{r}
-data<-read.csv("sample_file2.csv", header = T)
-```
-
-Some data wrangling:
-
-```{r}
-data$Quantity<-sample(0:25, nrow(data), replace = TRUE)
-data$Total.Charge<-data$Quantity * data$Full.cost.unit
-data_sort_by_unit_price<-data[order(data$Unit.Price.Charged),]
-```
-
-
-Simple plot:
-
-```{r}
-d<-data_sort_by_unit_price
-plot(d$Unit.Price.Charged, d$Quantity, pch = 15, col = "red", main = "Number of kits Puchased", ylab = "Quantity", xlab = "Price per unit")
-```
 
