@@ -9,27 +9,42 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 library(dplyr)
 library(ggplot2)
+library(lubridate)
+library(openxlsx)
+library(readxl)
 ```
 
-## R Markdown
+## readxl
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+col_types = c("text", "text",	"date",	"text",	"text",	"numeric",	"numeric",	"numeric",	"numeric",	"numeric", "numeric",	"numeric",	"numeric")
+```{r}
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+xlsxFile<-"20210503_Westpac_Merchant_Statements_332259464_00000_1_23772.xlsx"
+a<- read_excel(xlsxFile, sheet = 1, col_names = TRUE, skip = 8, trim_ws = TRUE)
+transaction_id<-c("TDESD")
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+head(a)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+## openxlsx
+```{r}
+xlsxFile<-"20210503_Westpac_Merchant_Statements_332259464_00000_1_23772.xlsx"
+b<-read.xlsx(xlsxFile, sheet = 1, startRow = 9, cols = c(1:10), na.strings = "NA", colNames = TRUE, skipEmptyCols = TRUE, detectDates = TRUE)
+b$Date<-convertToDate(b$Date)
+```
+
+
+```{r}
+head(b)
+```
+
+```{r}
+b[12:15,]
+```
+
 
 ## Stdin
 
