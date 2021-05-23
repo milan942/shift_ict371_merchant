@@ -4,7 +4,7 @@
 2. scrums and sprints goals - who is doing what?
 3. testing import data code (also - is.na, `is_empty`)
 4. replicate unfiltered `Mth_Data` sheet from Couplands_Apr21
-5. set a date and time to go to Nathan's office
+5. set a date and time to go to Nathan's office  -Tuesday 1:30pm-3:30Pm
 6. Blogs - due tomorrow
 7. Project proposal - put sprints in now?
 
