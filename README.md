@@ -12,10 +12,11 @@
 ## Saturday 24 May scrum (sprint start)  - data import
 
 ### to do | done:
-+ excel import functions (on dummy data)
-- is.na, is_empty checkpoints for missing data cells
-- string processing (get rid of special characters, white space?)
-+ fokking dates - probably don't need them in day-month-year formats, month seems to isolate fine
+
+(+) excel import 
+(-) is.na, is_empty checkpoints for missing data cells
+(-) string processing (get rid of special characters, white space?)
+(+) dates import - probably don't need them in day-month-year formats, month seems to isolate fine
 
 + project proposal 
 	intro, problem statement... ? <- update here...
