@@ -58,10 +58,10 @@ getting the business site name and date of the report
 a<-read.csv(file = paste0(dir, files_to_read[1]), header = F, nrows = 8) # read the header - first 8 rows
 site_address<-a[1, c(6,7)] # get the address
 d<-read.csv(file = paste0(dir, files_to_read[1]), header = T, skip = 8)
-dates<-d[d$V1 =="TDESD", 3] # 'TDESD' seems to be the code for day-by-day transactions, col 3 has dates in dd/mm format
+dates<- d %>% filter(TDESH %in% "TDESD") %>% select(Date) %>% .[["Date"]]# 'TDESD' seems to be the code for day-by-day transactions, col 3 has dates in dd/mm format
 dates_s<-strsplit(as.character(dates), "/") # split the vector of dates by '/'. strisplit() outputs a list, every second sub-element is the month
 month<-sapply(dates_s, "[[", 2) # something clever we have to credit mighty web for, gets every second sub-element of the list 
-month<-unique(sort(month)) # sort and get unique values
+#month<-unique(sort(month)) # sort and get unique values
 # if after sorting the month is of length 1 - it is all good and we can set it as a report date
 ```
 
@@ -112,9 +112,6 @@ colnames(d_to_integrate)<-data_col_names
 list_of_data_to_integrate[[i]]<-d_to_integrate
 }
 ```
-
-
-
 
 
 
