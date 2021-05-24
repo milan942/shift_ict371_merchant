@@ -28,6 +28,7 @@
 2. if not, what is missing from the current reports
 3. Couplands - are we right in assuming the reports come month by month? what happens if I try to generate a report for Feb in May?
 can we assume the files will stay in a separate folder?
+4. How important to get the site (location) name right? because parsing addresses is a bit tricky
 
 
 ## Questions (first client meeting):
